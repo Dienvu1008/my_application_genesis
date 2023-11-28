@@ -1,0 +1,27 @@
+name: my_application_genesis
+description: A template t
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.6 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  sqflite: ^2.0.0+2
+  bloc: ^8.1.1
+  flutter_bloc: ^8.1.1
+  shared_preferences: ^2.1.2
+  sqflite_common_ffi: ^2.2.5
+  url_launcher: ^6.1.8
+  font_awesome_flutter: ^10.5.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+flutter:
+  uses-material-design: true
