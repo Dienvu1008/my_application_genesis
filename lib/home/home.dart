@@ -6,8 +6,6 @@ import 'package:my_application_genesis/screen_demo_1/page_1_3.dart';
 import 'package:my_application_genesis/screen_demo_2/page_2_1.dart';
 import 'package:my_application_genesis/screen_demo_2/page_2_2.dart';
 import 'package:my_application_genesis/screen_demo_2/page_2_4.dart';
-import 'package:my_application_genesis/utils.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../app/app_localizations.dart';
 import '../screen_about_us/page_about_us.dart';
 import '../screen_demo_2/page_2_3.dart';
@@ -96,12 +94,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     const Page_2_4(),
   ];
 
-  static final List<Widget> _materialDesignScreen = <Widget>[
-    ColorPalettesPage(),
-    TypographyPage(),
-    ElevationPage()
-  ];
-
   void _onDrawerItemTapped(int index) {
     setState(() {
       _selectedDrawerItemIndex = index;
@@ -172,9 +164,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget createPageForMaterialDesignScreen(
       PageOfMaterialDesignScreenSelected screenSelected,
       bool showNavBarExample) {
-    switch (
-        //_selectedNavBarItemIndex
-        screenSelected) {
+    switch (screenSelected) {
       case PageOfMaterialDesignScreenSelected.component:
         return Expanded(
           child: OneTwoTransition(
@@ -291,7 +281,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             scaffoldKey: scaffoldKey,
             animationController: controller,
             railAnimation: railAnimation,
-            appBar: createAppBar((_selectedDrawerItemIndex == ScreenSelected.demoScreen1.value &&
+            appBar: createAppBar((_selectedDrawerItemIndex ==
+                        ScreenSelected.demoScreen1.value &&
                     _selectedNavBarItemIndex ==
                         PageOfDemoScreen1.page_1_1.value)
                 ? 'Screen 1 Page 1'
@@ -301,8 +292,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     ? 'Screen 1 Page 2'
                     : (_selectedDrawerItemIndex == ScreenSelected.demoScreen1.value &&
                             _selectedNavBarItemIndex ==
-                                PageOfDemoScreen1
-                                    .page_1_3.value)
+                                PageOfDemoScreen1.page_1_3.value)
                         ? 'Screen 1 Page 3'
                         : (_selectedDrawerItemIndex ==
                                 ScreenSelected.settingsScreen.value)
@@ -310,9 +300,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             : (_selectedDrawerItemIndex ==
                                     ScreenSelected.aboutUsScreen.value)
                                 ? localizations!.aboutUs
-                                : (_selectedDrawerItemIndex ==
-                                            ScreenSelected
-                                                .materialDesignScreen.value &&
+                                : (_selectedDrawerItemIndex == ScreenSelected.materialDesignScreen.value &&
                                         _selectedNavBarItemIndex ==
                                             PageOfMaterialDesignScreenSelected
                                                 .component.value)
@@ -345,36 +333,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     child: Text('My Application Genesis'),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.checklist_outlined),
-                    title: Text(localizations!.tasksAndEvents),
+                    leading: const Icon(Icons.monitor_outlined),
+                    title: Text('Screen 1'),
                     selected: _selectedDrawerItemIndex ==
                         ScreenSelected.demoScreen1.value,
                     onTap: () =>
                         _onDrawerItemTapped(ScreenSelected.demoScreen1.value),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.calendar_month_outlined),
-                    title: Text(localizations.calendar),
+                    leading: const Icon(Icons.monitor_outlined),
+                    title: Text('Screen 2'),
                     selected: _selectedDrawerItemIndex ==
                         ScreenSelected.demoScreen2.value,
-                    //onTap: () => showComingSoonDialog(context),
-                    onTap: () => _onDrawerItemTapped(
-                        ScreenSelected.demoScreen2.value),
+                    onTap: () =>
+                        _onDrawerItemTapped(ScreenSelected.demoScreen2.value),
                   ),
-                  // ListTile(
-                  //   leading: const Icon(Icons.timelapse_outlined),
-                  //   title: Text(localizations.focusTimer),
-                  //   selected: _selectedDrawerItemIndex ==
-                  //       ScreenSelected.focusTimerScreen.value,
-                  //   onTap: () => showComingSoonDialog(context),
-                  // ),
-                  // ListTile(
-                  //   leading: const Icon(Icons.notes_outlined),
-                  //   title: Text(localizations.notes),
-                  //   selected: _selectedDrawerItemIndex ==
-                  //       ScreenSelected.notesScreen.value,
-                  //   onTap: () => showComingSoonDialog(context),
-                  // ),
                   ListTile(
                     leading: const Icon(Icons.design_services_outlined),
                     title: const Text('Material Design'),
@@ -399,45 +372,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     onTap: () =>
                         _onDrawerItemTapped(ScreenSelected.aboutUsScreen.value),
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.emoji_food_beverage_outlined),
-                    title: Text(
-                      localizations.supportUs,
-                    ),
-                    onTap: () async {
-                      Uri url;
-                      switch (Localizations.localeOf(context).languageCode) {
-                        case 'en':
-                          url = supportUsEnUrl;
-                          break;
-                        case 'vi':
-                          url = supportUsViUrl;
-                          break;
-                        case 'de':
-                          url = supportUsDeUrl;
-                          break;
-                        default:
-                          url =
-                              supportUsEnUrl; // fallback to English URL if the language is not supported
-                      }
-                      if (await canLaunchUrl(url)) {
-                        await launchURL(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                    },
-                  ),
-                  ListTile(
-                      leading: const Icon(Icons.upgrade_outlined),
-                      title: const Text(
-                        "Upgrade to the Pro version",
-                      ),
-                      onTap: () => launchURL(proVersionUrl)),
                 ],
               ),
             ),
             body: _selectedDrawerItemIndex == ScreenSelected.demoScreen1.value
-                ? createPageForTasksScreen() //_homePages.elementAt(_selectedNavBarItemIndex)
+                ? createPageForTasksScreen()
                 : _selectedDrawerItemIndex == ScreenSelected.settingsScreen.value
                     ? SettingsPage(
                         colorSelected: widget.colorSelected,
@@ -479,9 +418,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         : _selectedDrawerItemIndex == ScreenSelected.demoScreen2.value
                             ? createPageForCalendarScreen()
                             : createPageForMaterialDesignScreen(PageOfMaterialDesignScreenSelected.values[_selectedNavBarItemIndex], controller.value == 1),
-            // : _selectedDrawerItemIndex == ScreenSelected.calendarScreen.value
-            // ? DatePickerDialog()
-            // :,
             navigationRail: NavigationRail(
               extended: showLargeSizeLayout,
               destinations:
@@ -612,9 +548,8 @@ class _ColorSeedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.palette_outlined,
-        //color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       tooltip: 'Select a seed color',
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -666,9 +601,8 @@ class _ColorImageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.image_outlined,
-        //color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       tooltip: 'Select a color extraction image',
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -725,9 +659,8 @@ class _LanguageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     return PopupMenuButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.language_outlined,
-        //color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       tooltip: 'Select a language',
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -1089,11 +1022,11 @@ class _AppNavigationBarsState extends State<AppNavigationBars> {
   late int selectedDrawerItemIndex;
 
   List<List<NavigationDestination>> destinations = [
-    navBarTasksScreenDestinations,
+    navBarDemoScreen1Destinations,
     navBarSettingsScreenDestinations,
     navBarAboutUsScreenDestinations,
     navBarMaterialDesignScreenDestinations,
-    navBarCalendarScreenDestinations,
+    navBarDemoScreen2Destinations,
   ];
 
   @override
@@ -1135,7 +1068,7 @@ class _AppNavigationBarsState extends State<AppNavigationBars> {
 }
 
 final List<NavigationRailDestination> navRailTasksScreenDestinations =
-    navBarTasksScreenDestinations
+    navBarDemoScreen1Destinations
         .map(
           (destination) => NavigationRailDestination(
             icon: Tooltip(
@@ -1203,7 +1136,7 @@ final List<NavigationRailDestination> navRailMaterialDesignScreenDestinations =
         .toList();
 
 final List<NavigationRailDestination> navRailCalendarScreenDestinations =
-    navBarCalendarScreenDestinations
+    navBarDemoScreen2Destinations
         .map(
           (destination) => NavigationRailDestination(
             icon: Tooltip(
@@ -1219,24 +1152,24 @@ final List<NavigationRailDestination> navRailCalendarScreenDestinations =
         )
         .toList();
 
-const List<NavigationDestination> navBarTasksScreenDestinations = [
+const List<NavigationDestination> navBarDemoScreen1Destinations = [
   NavigationDestination(
     tooltip: '',
-    icon: Icon(Icons.home_outlined),
-    label: 'Overview',
-    selectedIcon: Icon(Icons.home),
+    icon: Icon(Icons.looks_one_outlined),
+    label: 'Page 1',
+    selectedIcon: Icon(Icons.looks_one),
   ),
   NavigationDestination(
     tooltip: '',
-    icon: Icon(Icons.timeline_outlined),
-    label: 'Timeline',
-    selectedIcon: Icon(Icons.timeline),
+    icon: Icon(Icons.looks_two_outlined),
+    label: 'Page 2',
+    selectedIcon: Icon(Icons.looks_two),
   ),
   NavigationDestination(
     tooltip: '',
-    icon: Icon(Icons.table_chart_outlined),
-    label: 'Timetable',
-    selectedIcon: Icon(Icons.table_chart),
+    icon: Icon(Icons.looks_3_outlined),
+    label: 'Page 3',
+    selectedIcon: Icon(Icons.looks_3),
   ),
 ];
 
@@ -1299,30 +1232,30 @@ const List<NavigationDestination> navBarMaterialDesignScreenDestinations = [
   )
 ];
 
-const List<NavigationDestination> navBarCalendarScreenDestinations = [
+const List<NavigationDestination> navBarDemoScreen2Destinations = [
   NavigationDestination(
     tooltip: '',
-    icon: Icon(Icons.calendar_view_day_outlined),
-    label: 'Day',
-    selectedIcon: Icon(Icons.calendar_view_day),
+    icon: Icon(Icons.looks_one_outlined),
+    label: 'Page 1',
+    selectedIcon: Icon(Icons.looks_one),
   ),
   NavigationDestination(
     tooltip: '',
-    icon: Icon(Icons.calendar_view_week_outlined),
-    label: 'Week',
-    selectedIcon: Icon(Icons.calendar_view_week),
+    icon: Icon(Icons.looks_two_outlined),
+    label: 'Page 2',
+    selectedIcon: Icon(Icons.looks_two),
   ),
   NavigationDestination(
     tooltip: '',
-    icon: Icon(Icons.calendar_view_month_outlined),
-    label: 'Month',
-    selectedIcon: Icon(Icons.calendar_view_month),
+    icon: Icon(Icons.looks_3_outlined),
+    label: 'Page 3',
+    selectedIcon: Icon(Icons.looks_3),
   ),
   NavigationDestination(
     tooltip: '',
-    icon: Icon(Icons.calendar_month_outlined),
-    label: 'Year',
-    selectedIcon: Icon(Icons.calendar_month),
+    icon: Icon(Icons.looks_4_outlined),
+    label: 'Page 4',
+    selectedIcon: Icon(Icons.looks_4),
   )
 ];
 

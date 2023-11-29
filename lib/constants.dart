@@ -58,41 +58,18 @@ enum ColorSeed {
   brown("Brown", Colors.brown),
   black("Black", Colors.black),
   white("White", Colors.white);
+
   const ColorSeed(this.label, this.color);
   final String label;
   final Color color;
 }
 
-MaterialColor createMaterialColor(Color color) {
-  List strengths = <double>[.05];
-  Map<int, Color> swatch = {};
-  final int r = color.red, g = color.green, b = color.blue;
-
-  for (int i = 1; i < 10; i++) {
-    strengths.add(0.1 * i);
-  }
-  strengths.forEach((strength) {
-    final double ds = 0.5 - strength;
-    swatch[(strength * 1000).round()] = Color.fromRGBO(
-      r + ((ds < 0 ? r : (255 - r)) * ds).round(),
-      g + ((ds < 0 ? g : (255 - g)) * ds).round(),
-      b + ((ds < 0 ? b : (255 - b)) * ds).round(),
-      1,
-    );
-  });
-  return MaterialColor(color.value, swatch);
-}
-
 enum ScreenSelected {
   demoScreen1(0),
+  demoScreen2(4),
+  materialDesignScreen(3),
   settingsScreen(1),
   aboutUsScreen(2),
-  materialDesignScreen(3),
-  demoScreen2(4),
-  //focusTimerScreen(5),
-  //contactsScreen(6),
-  //statsScreen(7),
-  //notesScreen(8),
   ;
 
   const ScreenSelected(this.value);
@@ -104,16 +81,18 @@ enum PageOfDemoScreen1 {
   page_1_2(1),
   page_1_3(2),
   ;
+
   const PageOfDemoScreen1(this.value);
   final int value;
 }
 
 enum PageOfDemoScreen2 {
-  dayPage(0),
-  weekPage(1),
-  monthPage(2),
-  yearPage(3),
+  page_2_1(0),
+  page_2_2(1),
+  page_2_3(2),
+  page_2_4(3),
   ;
+
   const PageOfDemoScreen2(this.value);
   final int value;
 }
@@ -128,8 +107,6 @@ enum PageOfMaterialDesignScreenSelected {
   const PageOfMaterialDesignScreenSelected(this.value);
   final int value;
 }
-
-
 
 enum AppLanguage {
   czech('Czech', 'CS'),
@@ -164,28 +141,18 @@ Uri appPageFacebookUrl =
 Uri emailUrl = Uri.parse(
     "mailto:<dienvu1008@gmail.com>?subject=MyTimeManager%20Query&body=Hi");
 Uri readMeUrl = Uri.parse(
-    "https://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/README.md");
+    "https://github.com/Dienvu1008/my_application_genesis/blob/main/README.md");
 Uri appReadMeUrl = Uri.parse(
-    "github://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/README.md");
-Uri readMeDeUrl = Uri.parse(
-    "https://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/README-de.md");
-Uri appReadMeDeUrl = Uri.parse(
-    "github://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/README-de.md");
-Uri readMeViUrl = Uri.parse(
-    "https://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/README-vi.md");
-Uri appReadMeViUrl = Uri.parse(
-    "github://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/README-vi.md");
-Uri privacyUrl = Uri.parse(
-    "https://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/PRIVACY.md");
-Uri appPrivacyUrl = Uri.parse(
-    "github://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/PRIVACY.md");
+    "github://github.com/Dienvu1008/my_application_genesis/blob/main/README.md");
 Uri issueUrl =
-    Uri.parse("https://github.com/Dienvu1008/My-Time-Manager-Infor/issues");
+    Uri.parse("https://github.com/Dienvu1008/my_application_genesis/issues");
 Uri appIssueUrl =
-    Uri.parse("github://github.com/Dienvu1008/My-Time-Manager-Infor/issues");
-Uri proVersionUrl =
-    Uri.parse("market://details?id=com.dienvu.mytimemanager.pro");
-Uri freeVersionUrl =
+    Uri.parse("github://github.com/Dienvu1008/my_application_genesis/issues");
+Uri sourceCodeUrl =
+    Uri.parse("https://github.com/Dienvu1008/my_application_genesis");
+Uri appSourceCodeUrl =
+    Uri.parse("github://github.com/Dienvu1008/my_application_genesis");
+Uri playStoreUrl =
     Uri.parse("market://details?id=com.dienvu.mytimemanager.free");
 Uri supportUsEnUrl = Uri.parse(
     "https://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/SUPPORT-US-en.md");

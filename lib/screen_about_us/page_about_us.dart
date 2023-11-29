@@ -37,26 +37,26 @@ class AboutUsPage extends StatelessWidget {
     );
   }
 
-  void showOpenSourceDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        final localizations = AppLocalizations.of(context);
-        return AlertDialog(
-          title: Text(localizations!.openSourceAnnouncement),
-          content: Text(localizations.thisAppWillBecomeOpenSourceWeWillMakeTheSourceCodePublicAfterCleaningUpTheCode),
-          actions: [
-            TextButton(
-              child: Text(localizations.ok),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void showOpenSourceDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       final localizations = AppLocalizations.of(context);
+  //       return AlertDialog(
+  //         title: Text(localizations!.openSourceAnnouncement),
+  //         content: Text(localizations.thisAppWillBecomeOpenSourceWeWillMakeTheSourceCodePublicAfterCleaningUpTheCode),
+  //         actions: [
+  //           TextButton(
+  //             child: Text(localizations.ok),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,56 +90,15 @@ class AboutUsPage extends StatelessWidget {
                           } else {
                             await launchURL(issueUrl);
                           }
-                        }),
+                        }
+                        ),
                     ListTile(
                       leading: const Icon(Icons.update_outlined),
-                      title: Text("Free Version", style: textTheme.bodyMedium),
-                      subtitle: Text("1.3.1", style: textTheme.bodySmall),
-                      onTap: () => launchURL(freeVersionUrl),
+                      title: Text("Version", style: textTheme.bodyMedium),
+                      subtitle: Text("1.0.0", style: textTheme.bodySmall),
+                      //onTap: () => launchURL(playStoreUrl),
                     ),
-                    ListTile(
-                        leading: const Icon(Icons.policy_outlined),
-                        title: Text(localizations.privacyPolicy,
-                            style: textTheme.bodyMedium),
-                        onTap: () async {
-                          if (await canLaunchUrl(appPrivacyUrl)) {
-                            await launchURL(appPrivacyUrl);
-                          } else {
-                            await launchURL(privacyUrl);
-                          }
-                        }),
-                    ListTile(
-                      leading: const Icon(Icons.help_center_outlined),
-                      title: Text(localizations.howToUse,
-                          style: textTheme.bodyMedium),
-                      onTap: () async {
-                        Uri url;
-                        Uri appUrl;
-                        switch (Localizations.localeOf(context).languageCode) {
-                          case 'en':
-                            url = readMeUrl;
-                            appUrl = appReadMeUrl;
-                            break;
-                          case 'vi':
-                            url = readMeViUrl;
-                            appUrl = appReadMeViUrl;
-                            break;
-                          case 'de':
-                            url = readMeDeUrl;
-                            appUrl = appReadMeDeUrl;
-                            break;
-                          default:
-                            url =
-                                readMeUrl; // fallback to English URL if the language is not supported
-                            appUrl = appReadMeUrl;
-                        }
-                        if (await canLaunchUrl(appUrl)) {
-                          await launchURL(appUrl);
-                        } else {
-                          await launchURL(url);
-                        }
-                      },
-                    ),
+
                     ListTile(
                       leading: const Icon(Icons.emoji_food_beverage_outlined),
                       title: Text(localizations.supportUs,
@@ -173,7 +132,13 @@ class AboutUsPage extends StatelessWidget {
                       ),
                       title: Text(localizations.openSource,
                           style: textTheme.bodyMedium),
-                      onTap: () => showOpenSourceDialog(context),
+                      onTap: () => () async {
+                          if (await canLaunchUrl(appSourceCodeUrl)) {
+                            await launchURL(appSourceCodeUrl);
+                          } else {
+                            await launchURL(sourceCodeUrl);
+                          }
+                        },
                     ),
                   ],
                 ),
@@ -225,27 +190,6 @@ class AboutUsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 16.0, left: 16.0),
-                      child:
-                          Text("Apache License", style: textTheme.titleLarge),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: ListTile(
-                        subtitle: Text("Copyright 2023 Vũ Văn Điền"
-                            '\n\nLicensed under the Apache License, Version 2.0 (the "License") you may not use this file except in compliance with the License. You may obtain a copy of the License at'
-                            "\n\n\nhttp://www.apache.org/licenses/LICENSE-2.0"
-                            '\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.'),
-                      ),
-                    ),
-                  ],
-                ),
-              )
             ],
           ),
         ),
