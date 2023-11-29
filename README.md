@@ -1,20 +1,30 @@
 # My Application Genesis
+Welcome to our Flutter project! This project is designed as a base application, helping developers create new applications quickly and efficiently.
+
+This application is an extension of the source code from the Material 3 Demo application. You can find the original source code at the link below:
 
 https://github.com/flutter/samples/tree/main/material_3_demo
 
-## Getting Started
 
-Ứng dụng này được mở rộng từ mã nguồn của ứng dụng material 3 demo. 
-Các bạn có thể sử dụng mã nguồn này để chứa nội dung cho các ứng dụng được phát triển về sau này.
+## Features
+* Adaptive Layout
 
-## Chức năng chính
-* Tạo giao diện nhiều thành phần (drawer, appbar, bottom bar)
-* Điều chỉnh chế độ sáng, tối.
-* Điều chỉnh màu nền của ứng dụng.
-* Điều chỉnh giao diện giữa material 2 và 3.
-* Lựa chọn ngôn ngữ ứng dụng.
-* Lưu lại các cài đặt phía trên cho các lần mở ứng dụng sau này.
-* Đáp ứng với các loại màn hình nhỏ, vừa, lớn...
+The application includes many basic components (Drawer, NavigationRail, Navigation Bar, Application Bar…) that make navigation and use of the application easier.
+
+The application is designed to display with three different screen sizes, small screens like on mobile phones, medium screens like tablets, and large screens like on laptops, desktops, and external monitors.
+
+Based on the fact that NavigationRail is not recommended on a small screen, the app changes its layout based on the screen width. If it's played on iOS or Android devices which have a narrow screen, a Navigation Bar will show at the bottom and will be used to navigate. But if it's played as a desktop or a web app, a Navigation Rail will show on the left side and at the same time, a Navigation Bar will show as an example but will not have any functionality.
+
+Users can see both layouts on one device by running a desktop app and adjusting the screen width.
+
+* Users can switch between a light or dark theme.
+* A pop-up menu is available for users to change the base color used for the light and dark themes. This utilizes a new color seed feature to generate entire color schemes from a single color.
+* Users can switch between Material 2 and Material 3 for the displayed components
+* The application can be multilingual.
+* The above settings can be saved for future application launches.
+
+
+## AppView with narrow screen
 
 <div style="text-align: center">
     <table>
@@ -50,7 +60,7 @@ Các bạn có thể sử dụng mã nguồn này để chứa nội dung cho c�
     </table>
 </div>
 
-
+## AppView with medium screen
 
 <div style="text-align: center">
     <table>
@@ -87,6 +97,8 @@ Các bạn có thể sử dụng mã nguồn này để chứa nội dung cho c�
         </tr>
     </table>
 </div>
+
+## AppView with large screen
 
 <div style="text-align: center">
     <table>
