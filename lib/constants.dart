@@ -154,11 +154,9 @@ Uri appSourceCodeUrl =
     Uri.parse("github://github.com/Dienvu1008/my_application_genesis");
 Uri playStoreUrl =
     Uri.parse("market://details?id=com.dienvu.mytimemanager.free");
-Uri supportUsEnUrl = Uri.parse(
-    "https://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/SUPPORT-US-en.md");
-Uri supportUsDeUrl = Uri.parse(
-    "https://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/SUPPORT-US-de.md");
-Uri supportUsViUrl = Uri.parse(
-    "https://github.com/Dienvu1008/My-Time-Manager-Infor/blob/master/SUPPORT-US-vi.md");
+Uri supportUsUrl = Uri.parse(
+    "https://github.com/Dienvu1008/my_application_genesis/blob/main/SUPPORT-US.md");
+Uri appSupportUsUrl = Uri.parse(
+    "github://github.com/Dienvu1008/my_application_genesis/blob/main/SUPPORT-US.md");
 Uri paypalUrl = Uri.parse("https://www.paypal.com/paypalme/dienvu1008");
 Uri appPaypalUrl = Uri.parse("paypal://www.paypal.com/paypalme/dienvu1008");

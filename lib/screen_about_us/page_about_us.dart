@@ -37,27 +37,6 @@ class AboutUsPage extends StatelessWidget {
     );
   }
 
-  // void showOpenSourceDialog(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       final localizations = AppLocalizations.of(context);
-  //       return AlertDialog(
-  //         title: Text(localizations!.openSourceAnnouncement),
-  //         content: Text(localizations.thisAppWillBecomeOpenSourceWeWillMakeTheSourceCodePublicAfterCleaningUpTheCode),
-  //         actions: [
-  //           TextButton(
-  //             child: Text(localizations.ok),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
@@ -90,41 +69,25 @@ class AboutUsPage extends StatelessWidget {
                           } else {
                             await launchURL(issueUrl);
                           }
-                        }
-                        ),
+                        }),
                     ListTile(
                       leading: const Icon(Icons.update_outlined),
                       title: Text("Version", style: textTheme.bodyMedium),
                       subtitle: Text("1.0.0", style: textTheme.bodySmall),
                       //onTap: () => launchURL(playStoreUrl),
                     ),
-
                     ListTile(
                       leading: const Icon(Icons.emoji_food_beverage_outlined),
                       title: Text(localizations.supportUs,
                           style: textTheme.bodyMedium),
-                      onTap: () async {
-                        Uri url;
-                        switch (Localizations.localeOf(context).languageCode) {
-                          case 'en':
-                            url = supportUsEnUrl;
-                            break;
-                          case 'vi':
-                            url = supportUsViUrl;
-                            break;
-                          case 'de':
-                            url = supportUsDeUrl;
-                            break;
-                          default:
-                            url =
-                                supportUsEnUrl; // fallback to English URL if the language is not supported
-                        }
-                        if (await canLaunchUrl(url)) {
-                          await launchURL(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+                      // onTap: () => () async {
+                      //   if (await canLaunchUrl(appSupportUsUrl)) {
+                      //     await launchURL(appSupportUsUrl);
+                      //   } else {
+                      //     await launchURL(supportUsUrl);
+                      //   }
+                      // },
+                      onTap: () => launchURL(supportUsUrl),
                     ),
                     ListTile(
                       leading: const FaIcon(
@@ -132,13 +95,14 @@ class AboutUsPage extends StatelessWidget {
                       ),
                       title: Text(localizations.openSource,
                           style: textTheme.bodyMedium),
-                      onTap: () => () async {
-                          if (await canLaunchUrl(appSourceCodeUrl)) {
-                            await launchURL(appSourceCodeUrl);
-                          } else {
-                            await launchURL(sourceCodeUrl);
-                          }
-                        },
+                      // onTap: () => () async {
+                      //   if (await canLaunchUrl(appSourceCodeUrl)) {
+                      //     await launchURL(appSourceCodeUrl);
+                      //   } else {
+                      //     await launchURL(sourceCodeUrl);
+                      //   }
+                      // },
+                      onTap: () => launchURL(sourceCodeUrl),
                     ),
                   ],
                 ),

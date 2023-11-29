@@ -422,7 +422,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               extended: showLargeSizeLayout,
               destinations:
                   _selectedDrawerItemIndex == ScreenSelected.demoScreen1.value
-                      ? navRailTasksScreenDestinations
+                      ? navRailDemoScreen1Destinations
                       : _selectedDrawerItemIndex ==
                               ScreenSelected.settingsScreen.value
                           ? navRailSettingsScreenDestinations
@@ -431,7 +431,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               ? navRailAboutUsScreenDestinations
                               : _selectedDrawerItemIndex ==
                                       ScreenSelected.demoScreen2.value
-                                  ? navRailCalendarScreenDestinations
+                                  ? navRailDemoScreen2Destinations
                                   : navRailMaterialDesignScreenDestinations,
               selectedIndex: _selectedNavBarItemIndex,
               onDestinationSelected: (index) {
@@ -1067,7 +1067,7 @@ class _AppNavigationBarsState extends State<AppNavigationBars> {
   }
 }
 
-final List<NavigationRailDestination> navRailTasksScreenDestinations =
+final List<NavigationRailDestination> navRailDemoScreen1Destinations =
     navBarDemoScreen1Destinations
         .map(
           (destination) => NavigationRailDestination(
@@ -1135,7 +1135,7 @@ final List<NavigationRailDestination> navRailMaterialDesignScreenDestinations =
         )
         .toList();
 
-final List<NavigationRailDestination> navRailCalendarScreenDestinations =
+final List<NavigationRailDestination> navRailDemoScreen2Destinations =
     navBarDemoScreen2Destinations
         .map(
           (destination) => NavigationRailDestination(

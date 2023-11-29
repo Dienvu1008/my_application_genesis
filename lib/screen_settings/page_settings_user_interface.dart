@@ -61,8 +61,6 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
-    final isBright = Theme.of(context).brightness == Brightness.light;
-
     return Expanded(
       child: Scaffold(
         body: Padding(
