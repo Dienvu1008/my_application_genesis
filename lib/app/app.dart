@@ -6,131 +6,143 @@ import 'package:my_application_genesis/constants.dart';
 import 'package:my_application_genesis/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../screen_settings/auth/authentication_repository.dart';
+
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App(
+      {required AuthenticationRepository authenticationRepository, Key? key})
+      : _authenticationRepository = authenticationRepository;
+
+  final AuthenticationRepository _authenticationRepository;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppBloc(),
-      child: BlocBuilder<AppBloc, AppState>(
-        builder: (context, state) {
-          return MaterialApp(
-            locale: Locale(
-              [
-                'cs',
-                'de',
-                'en',
-                'es',
-                'fr',
-                'it',
-                'ja',
-                'ko',
-                'no',
-                'ru',
-                'sv',
-                'vi',
-                'zh'
-              ][state.language.index],
-            ),
-            localizationsDelegates: const [
-              AppLocalizationsDelegate(),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('cs'),
-              Locale('de'),
-              Locale('en'),
-              Locale('es'),
-              Locale('fr'),
-              Locale('it'),
-              Locale('ja'),
-              Locale('ko'),
-              Locale('no'),
-              Locale('ru'),
-              Locale('sv'),
-              Locale('vi'),
-              Locale('zh'),
-            ],
+    return RepositoryProvider.value(
+      value: _authenticationRepository,
+      child: BlocProvider(
+        create: (context) => AppBloc(authenticationRepository: _authenticationRepository),
+        child: BlocBuilder<AppBloc, AppState>(
+          builder: (context, state) {
+            return MaterialApp(
+              locale: Locale(
+                [
+                  'cs',
+                  'de',
+                  'en',
+                  'es',
+                  'fr',
+                  'it',
+                  'ja',
+                  'ko',
+                  'no',
+                  'ru',
+                  'sv',
+                  'vi',
+                  'zh'
+                ][state.language.index],
+              ),
+              localizationsDelegates: const [
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('cs'),
+                Locale('de'),
+                Locale('en'),
+                Locale('es'),
+                Locale('fr'),
+                Locale('it'),
+                Locale('ja'),
+                Locale('ko'),
+                Locale('no'),
+                Locale('ru'),
+                Locale('sv'),
+                Locale('vi'),
+                Locale('zh'),
+              ],
 
-            debugShowCheckedModeBanner: false, // remove debug banner
-            title: 'Material 3',
-            themeMode: state.themeMode,
-            theme: ThemeData(
-              colorSchemeSeed:
-                  state.colorSelectionMethod == ColorSelectionMethod.colorSeed
-                      ? state.colorSelected.color
-                      : null,
-              colorScheme:
-                  state.colorSelectionMethod == ColorSelectionMethod.image
-                      ? state.imageColorScheme
-                      : null,
-              useMaterial3: state.useMaterial3,
-              brightness: Brightness.light,
-            ),
-            darkTheme: ThemeData(
-              colorSchemeSeed:
-                  state.colorSelectionMethod == ColorSelectionMethod.colorSeed
-                      ? state.colorSelected.color
-                      : state.imageColorScheme!.primary,
-              useMaterial3: state.useMaterial3,
-              brightness: Brightness.dark,
-            ),
-            home: Home(
-              useLightMode: state.useLightMode,
-              useMaterial3: state.useMaterial3,
-              showBrightnessButtonInAppBar: state.showBrightnessButtonInAppBar,
-              showMaterialDesignButtonInAppBar:
-                  state.showMaterialDesignButtonInAppBar,
-              showColorSeedButtonInAppBar: state.showColorSeedButtonInAppBar,
-              showColorImageButtonInAppBar: state.showColorImageButtonInAppBar,
-              showLanguagesButtonInAppBar: state.showLanguagesButtonInAppBar,
-              colorSelected: state.colorSelected,
-              imageSelected: state.imageSelected,
-              languageSelected: state.language,
-              handleBrightnessChange: (useLightMode) =>
-                  context.read<AppBloc>().add(
-                        ToggleBrightness(useLightMode),
-                      ),
-              handleMaterialVersionChange: () => context
-                  .read<AppBloc>()
-                  .add(ToggleMaterialVersion(state.useMaterial3)),
-              handleDisplayBrightnessButtonInAppBarChange: () => context
-                  .read<AppBloc>()
-                  .add(ToggleDisplayBrightnessButtonInAppBar(
-                      state.showBrightnessButtonInAppBar)),
-              handleDisplayMaterialDesignButtonInAppBarChange: () => context
-                  .read<AppBloc>()
-                  .add(ToggleDisplayMaterialDesignButtonInAppBar(
-                      state.showMaterialDesignButtonInAppBar)),
-              handleDisplayColorSeedButtonInAppBarChange: () => context
-                  .read<AppBloc>()
-                  .add(ToggleDisplayColorSeedButtonInAppBar(
-                      state.showColorSeedButtonInAppBar)),
-              handleDisplayColorImageButtonInAppBarChange: () => context
-                  .read<AppBloc>()
-                  .add(ToggleDisplayColorImageButtonInAppBar(
-                      state.showColorImageButtonInAppBar)),
-              handleDisplayLanguagesButtonInAppBarChange: () => context
-                  .read<AppBloc>()
-                  .add(ToggleDisplayLanguagesButtonInAppBar(
-                      state.showLanguagesButtonInAppBar)),
-              handleColorSelect: (value) => context.read<AppBloc>().add(
-                    ChangeColor(ColorSeed.values[value]),
-                  ),
-              handleImageSelect: (value) => context.read<AppBloc>().add(
-                    ChangeImage(ColorImageProvider.values[value]),
-                  ),
-              handleLanguageSelect: (value) => context.read<AppBloc>().add(
-                    SelectLanguageEvent(AppLanguage.values[value]),
-                  ),
-              colorSelectionMethod: state.colorSelectionMethod,
-              launchCount: state.launchCount,
-            ),
-          );
-        },
+              debugShowCheckedModeBanner: false, // remove debug banner
+              title: 'Material 3',
+              themeMode: state.themeMode,
+              theme: ThemeData(
+                colorSchemeSeed:
+                    state.colorSelectionMethod == ColorSelectionMethod.colorSeed
+                        ? state.colorSelected.color
+                        : null,
+                colorScheme:
+                    state.colorSelectionMethod == ColorSelectionMethod.image
+                        ? state.imageColorScheme
+                        : null,
+                useMaterial3: state.useMaterial3,
+                brightness: Brightness.light,
+              ),
+              darkTheme: ThemeData(
+                colorSchemeSeed:
+                    state.colorSelectionMethod == ColorSelectionMethod.colorSeed
+                        ? state.colorSelected.color
+                        : state.imageColorScheme!.primary,
+                useMaterial3: state.useMaterial3,
+                brightness: Brightness.dark,
+              ),
+              home: Home(
+                useLightMode: state.useLightMode,
+                useMaterial3: state.useMaterial3,
+                showBrightnessButtonInAppBar:
+                    state.showBrightnessButtonInAppBar,
+                showMaterialDesignButtonInAppBar:
+                    state.showMaterialDesignButtonInAppBar,
+                showColorSeedButtonInAppBar: state.showColorSeedButtonInAppBar,
+                showColorImageButtonInAppBar:
+                    state.showColorImageButtonInAppBar,
+                showLanguagesButtonInAppBar: state.showLanguagesButtonInAppBar,
+                colorSelected: state.colorSelected,
+                imageSelected: state.imageSelected,
+                languageSelected: state.language,
+                handleBrightnessChange: (useLightMode) =>
+                    context.read<AppBloc>().add(
+                          ToggleBrightness(useLightMode),
+                        ),
+                handleMaterialVersionChange: () => context
+                    .read<AppBloc>()
+                    .add(ToggleMaterialVersion(state.useMaterial3)),
+                handleDisplayBrightnessButtonInAppBarChange: () => context
+                    .read<AppBloc>()
+                    .add(ToggleDisplayBrightnessButtonInAppBar(
+                        state.showBrightnessButtonInAppBar)),
+                handleDisplayMaterialDesignButtonInAppBarChange: () => context
+                    .read<AppBloc>()
+                    .add(ToggleDisplayMaterialDesignButtonInAppBar(
+                        state.showMaterialDesignButtonInAppBar)),
+                handleDisplayColorSeedButtonInAppBarChange: () => context
+                    .read<AppBloc>()
+                    .add(ToggleDisplayColorSeedButtonInAppBar(
+                        state.showColorSeedButtonInAppBar)),
+                handleDisplayColorImageButtonInAppBarChange: () => context
+                    .read<AppBloc>()
+                    .add(ToggleDisplayColorImageButtonInAppBar(
+                        state.showColorImageButtonInAppBar)),
+                handleDisplayLanguagesButtonInAppBarChange: () => context
+                    .read<AppBloc>()
+                    .add(ToggleDisplayLanguagesButtonInAppBar(
+                        state.showLanguagesButtonInAppBar)),
+                handleColorSelect: (value) => context.read<AppBloc>().add(
+                      ChangeColor(ColorSeed.values[value]),
+                    ),
+                handleImageSelect: (value) => context.read<AppBloc>().add(
+                      ChangeImage(ColorImageProvider.values[value]),
+                    ),
+                handleLanguageSelect: (value) => context.read<AppBloc>().add(
+                      SelectLanguageEvent(AppLanguage.values[value]),
+                    ),
+                colorSelectionMethod: state.colorSelectionMethod,
+                launchCount: state.launchCount, 
+                authenticationRepository: _authenticationRepository,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -151,7 +163,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   late SharedPreferences sharedPreferences;
 
-  AppBloc()
+  AppBloc({required AuthenticationRepository authenticationRepository})
       : super(AppState(
             useMaterial3: true,
             showBrightnessButtonInAppBar: true,

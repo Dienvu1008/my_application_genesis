@@ -6,11 +6,13 @@ import 'package:my_application_genesis/screen_demo_1/page_1_3.dart';
 import 'package:my_application_genesis/screen_demo_2/page_2_1.dart';
 import 'package:my_application_genesis/screen_demo_2/page_2_2.dart';
 import 'package:my_application_genesis/screen_demo_2/page_2_4.dart';
+import 'package:my_application_genesis/screen_settings/page_settings_account.dart';
 import '../app/app_localizations.dart';
 import '../screen_about_us/page_about_us.dart';
 import '../screen_demo_2/page_2_3.dart';
 import '../screen_material_design/page_color_palettes.dart';
 import '../screen_material_design/page_component.dart';
+import '../screen_settings/auth/authentication_repository.dart';
 import '../screen_settings/page_settings_user_interface.dart';
 import '../screen_material_design/page_elevation.dart';
 import '../screen_material_design/page_typography.dart';
@@ -39,9 +41,11 @@ class Home extends StatefulWidget {
     required this.colorSelectionMethod,
     required this.imageSelected,
     required this.languageSelected,
-    required this.launchCount,
+    required this.launchCount, 
+    required this.authenticationRepository,
   });
 
+  final AuthenticationRepository authenticationRepository;
   final bool useLightMode;
   final bool useMaterial3;
   final bool showBrightnessButtonInAppBar;
@@ -78,6 +82,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool showMediumSizeLayout = false;
   bool showLargeSizeLayout = false;
 
+  
   int _selectedDrawerItemIndex = ScreenSelected.demoScreen1.value;
   int _selectedNavBarItemIndex = 0;
 
@@ -93,6 +98,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     const Page_2_3(),
     const Page_2_4(),
   ];
+
+  //   static final List<Widget> _settingsScreen = <Widget>[
+  //   SettingsPage(),
+  //   AccountPage,
+  // ];
 
   void _onDrawerItemTapped(int index) {
     setState(() {
@@ -187,11 +197,52 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     }
   }
 
-  Widget createPageForTasksScreen() {
+  Widget createPageForSettingsScreen(
+    PageOfSettingsScreen screenSelected,
+  ) {
+    switch (screenSelected) {
+      case PageOfSettingsScreen.page_ui:
+        return SettingsPage(
+          colorSelected: widget.colorSelected,
+          colorSelectionMethod: widget.colorSelectionMethod,
+          handleBrightnessChange: widget.handleBrightnessChange,
+          handleColorSelect: widget.handleColorSelect,
+          handleDisplayBrightnessButtonInAppBarChange:
+              widget.handleDisplayBrightnessButtonInAppBarChange,
+          handleDisplayColorImageButtonInAppBarChange:
+              widget.handleDisplayColorImageButtonInAppBarChange,
+          handleDisplayColorSeedButtonInAppBarChange:
+              widget.handleDisplayColorSeedButtonInAppBarChange,
+          handleDisplayLanguagesButtonInAppBarChange:
+              widget.handleDisplayLanguagesButtonInAppBarChange,
+          handleDisplayMaterialDesignButtonInAppBarChange:
+              widget.handleDisplayMaterialDesignButtonInAppBarChange,
+          handleImageSelect: widget.handleImageSelect,
+          handleLanguageSelect: widget.handleLanguageSelect,
+          handleMaterialVersionChange: widget.handleMaterialVersionChange,
+          imageSelected: widget.imageSelected,
+          languageSelected: widget.languageSelected,
+          launchCount: widget.launchCount,
+          showBrightnessButtonInAppBar: widget.showBrightnessButtonInAppBar,
+          showColorImageButtonInAppBar: widget.showColorImageButtonInAppBar,
+          showColorSeedButtonInAppBar: widget.showColorSeedButtonInAppBar,
+          showLanguagesButtonInAppBar: widget.showLanguagesButtonInAppBar,
+          showMaterialDesignButtonInAppBar:
+              widget.showMaterialDesignButtonInAppBar,
+          useLightMode: widget.useLightMode,
+          useMaterial3: widget.useMaterial3,
+        );
+
+      case PageOfSettingsScreen.page_account:
+        return AccountPage(authenticationRepository: widget.authenticationRepository,);
+    }
+  }
+
+  Widget createPageForDemoScreen1() {
     return _demoScreen1.elementAt(_selectedNavBarItemIndex);
   }
 
-  Widget createPageForCalendarScreen() {
+  Widget createPageForDemoScreen2() {
     return _demoScreen2.elementAt(_selectedNavBarItemIndex);
   }
 
@@ -376,47 +427,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             body: _selectedDrawerItemIndex == ScreenSelected.demoScreen1.value
-                ? createPageForTasksScreen()
+                ? createPageForDemoScreen1()
                 : _selectedDrawerItemIndex == ScreenSelected.settingsScreen.value
-                    ? SettingsPage(
-                        colorSelected: widget.colorSelected,
-                        colorSelectionMethod: widget.colorSelectionMethod,
-                        handleBrightnessChange: widget.handleBrightnessChange,
-                        handleColorSelect: widget.handleColorSelect,
-                        handleDisplayBrightnessButtonInAppBarChange:
-                            widget.handleDisplayBrightnessButtonInAppBarChange,
-                        handleDisplayColorImageButtonInAppBarChange:
-                            widget.handleDisplayColorImageButtonInAppBarChange,
-                        handleDisplayColorSeedButtonInAppBarChange:
-                            widget.handleDisplayColorSeedButtonInAppBarChange,
-                        handleDisplayLanguagesButtonInAppBarChange:
-                            widget.handleDisplayLanguagesButtonInAppBarChange,
-                        handleDisplayMaterialDesignButtonInAppBarChange: widget
-                            .handleDisplayMaterialDesignButtonInAppBarChange,
-                        handleImageSelect: widget.handleImageSelect,
-                        handleLanguageSelect: widget.handleLanguageSelect,
-                        handleMaterialVersionChange:
-                            widget.handleMaterialVersionChange,
-                        imageSelected: widget.imageSelected,
-                        languageSelected: widget.languageSelected,
-                        launchCount: widget.launchCount,
-                        showBrightnessButtonInAppBar:
-                            widget.showBrightnessButtonInAppBar,
-                        showColorImageButtonInAppBar:
-                            widget.showColorImageButtonInAppBar,
-                        showColorSeedButtonInAppBar:
-                            widget.showColorSeedButtonInAppBar,
-                        showLanguagesButtonInAppBar:
-                            widget.showLanguagesButtonInAppBar,
-                        showMaterialDesignButtonInAppBar:
-                            widget.showMaterialDesignButtonInAppBar,
-                        useLightMode: widget.useLightMode,
-                        useMaterial3: widget.useMaterial3,
+                    ? createPageForSettingsScreen(
+                        PageOfSettingsScreen.values[_selectedNavBarItemIndex],
                       )
                     : _selectedDrawerItemIndex == ScreenSelected.aboutUsScreen.value
                         ? AboutUsPage()
                         : _selectedDrawerItemIndex == ScreenSelected.demoScreen2.value
-                            ? createPageForCalendarScreen()
+                            ? createPageForDemoScreen2()
                             : createPageForMaterialDesignScreen(PageOfMaterialDesignScreenSelected.values[_selectedNavBarItemIndex], controller.value == 1),
             navigationRail: NavigationRail(
               extended: showLargeSizeLayout,
@@ -463,11 +482,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             navigationBar: Visibility(
-              //bottom navigation bar sẽ không hiện ở các màn hình settings và about us
+              //bottom navigation bar sẽ không hiện ở màn hình about us
               visible: _selectedDrawerItemIndex !=
-                      ScreenSelected.settingsScreen.value &&
-                  _selectedDrawerItemIndex !=
-                      ScreenSelected.aboutUsScreen.value,
+                  ScreenSelected.aboutUsScreen.value,
               child: AppNavigationBars(
                 onSelectItem: (index) {
                   setState(() {
@@ -1177,15 +1194,15 @@ const List<NavigationDestination> navBarDemoScreen1Destinations = [
 const List<NavigationDestination> navBarSettingsScreenDestinations = [
   NavigationDestination(
     tooltip: '',
-    icon: SizedBox.shrink(), //Icon(Icons.settings_outlined),
-    label: '', //'Settings',
-    selectedIcon: SizedBox.shrink(), //Icon(Icons.settings),
+    icon: Icon(Icons.design_services_outlined),
+    label: 'UI',
+    selectedIcon: Icon(Icons.design_services),
   ),
   NavigationDestination(
     tooltip: '',
-    icon: SizedBox.shrink(), //Icon(Icons.settings_outlined),
-    label: '', //'Settings',
-    selectedIcon: SizedBox.shrink(), //Icon(Icons.settings),
+    icon: Icon(Icons.account_circle_outlined),
+    label: 'Account',
+    selectedIcon: Icon(Icons.account_circle),
   ),
 ];
 

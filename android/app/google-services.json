@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223695866051",
+    "project_id": "my-application-genesis",
+    "storage_bucket": "my-application-genesis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223695866051:android:34b99aacca2c3131df7a76",
+        "android_client_info": {
+          "package_name": "com.dienvu.my_application_genesis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAge2q47Vb_Xu16clEEvjFyZQ7Z540elAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -97,6 +97,14 @@ enum PageOfDemoScreen2 {
   final int value;
 }
 
+enum PageOfSettingsScreen {
+  page_ui(0),
+  page_account(1),
+  ;
+
+  const PageOfSettingsScreen(this.value);
+  final int value;
+}
 enum PageOfMaterialDesignScreenSelected {
   component(0),
   color(1),

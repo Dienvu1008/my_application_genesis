@@ -14,10 +14,22 @@ dependencies:
   #sqflite: ^2.0.0+2
   bloc: ^8.1.1
   flutter_bloc: ^8.1.1
+  equatable: ^2.0.3
   shared_preferences: ^2.1.2
   #sqflite_common_ffi: ^2.2.5
   url_launcher: ^6.1.8
   font_awesome_flutter: ^10.5.0
+  flow_builder: ^0.0.9
+  firebase_auth: ^4.6.0
+  firebase_core: ^2.12.0
+  google_sign_in: ^6.1.0
+  flutter_facebook_auth: ^5.0.11
+  meta: ^1.7.0
+  formz: ^0.6.0
+
+  
+  #firebase_core: ^2.1.0
+  #flow_builder: ^0.0.9
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +37,5 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
